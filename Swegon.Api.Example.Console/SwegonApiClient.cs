@@ -21,7 +21,43 @@ namespace Swegon.Api.Example
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri($"{config["ApiBaseUrl"]}/manufacturing-order/{manufacturingOrderNumber}/{facility}/{itemNumber}"),
+                RequestUri = new Uri($"{config["ApiBaseUrl"]}/manufacturing-order/{manufacturingOrderNumber}/{facility}/{itemNumber}?"),
+                Headers =
+                {
+                    { "Authorization", "Bearer " + accessToken }
+                }
+            };
+
+            using (var response = await client.SendAsync(request))
+            {
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        public async Task<string> GetSalesOrderAsync(string accessToken, string erpOrderNumber)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"{config["ApiBaseUrl"]}/sales/{erpOrderNumber}?"),
+                Headers =
+                {
+                    { "Authorization", "Bearer " + accessToken }
+                }
+            };
+
+            using (var response = await client.SendAsync(request))
+            {
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        public async Task<string> GetItemAsync(string accessToken, string itemNumber)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"{config["ApiBaseUrl"]}/items/{itemNumber}"),
                 Headers =
                 {
                     { "Authorization", "Bearer " + accessToken }

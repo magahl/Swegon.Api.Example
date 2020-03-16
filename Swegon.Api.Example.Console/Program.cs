@@ -20,12 +20,12 @@ namespace Swegon.Api.Example
 
             var authResult = await tokenRetriever.AuthResult();
 
-            var manufacturingOrder = await apiClient
-                .GetManufacturingOrderAsync(authResult.AccessToken, "2005753388", "S02", "GOLD011FRX21141");
+            var salesOrder = await apiClient
+                .GetSalesOrderAsync(authResult.AccessToken, "1024757");
 
-            logger.LogInformation("Found Manufacturing Order:");
+            logger.LogInformation("Found Sales Order:");
 
-            logger.LogInformation(JToken.Parse(manufacturingOrder).ToString(Newtonsoft.Json.Formatting.Indented));
+            logger.LogInformation(JToken.Parse(salesOrder).ToString(Newtonsoft.Json.Formatting.Indented));
 
             logger.LogInformation("Press any key to exit");
             Console.ReadKey();
